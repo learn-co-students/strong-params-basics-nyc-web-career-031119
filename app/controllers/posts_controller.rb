@@ -1,29 +1,34 @@
 class PostsController < ApplicationController
+	before_action :get_post, only: [:show, :update, :edit]
 	def index
 		@posts = Post.all
 	end
 
 	def show
-		@post = Post.find(params[:id])
 	end
 
 	def new
-		@post = Post.new
+		@p = Post.new
 	end
 
 	def create
-	  @post = Post.new(params["post"])
+	  @post = Post.new(params.require(:post).permit(:title, :description))
 	  @post.save
 	  redirect_to post_path(@post)
 	end
 
 	def update
-	  @post = Post.find(params[:id])
-	  @post.update(params["post"])
-	  redirect_to post_path(@post)
+	  @p.update(params.require(:post).permit(:title))
+	  redirect_to post_path(@p)
 	end
 
 	def edit
-	  @post = Post.find(params[:id])
 	end
+
+	private
+
+	def get_post
+		@p = Post.find(params[:id])
+	end
+
 end

@@ -37,7 +37,7 @@ That is the problem that strong params was created to fix. We want to make sure 
 Let's enable Strong Params. To do this, open up `config/application.rb` and delete the line that says: `config.action_controller.permit_all_parameters = true`. Now restart your rails server and navigate to `localhost:3000/posts/new`, once there fill out the form and click `submit`. You'll see we get the following `ForbiddenAttributesError`:
 
 ![ForbiddenAttributesError](https://s3.amazonaws.com/flatiron-bucket/readme-lessons/ForbiddenAttributesError.png)
-
+ 
 What this means is that Rails needs to be told what parameters are allowed to be submitted through the form to the database. The default is to let *nothing* through.
 
 The same error would occur if you were trying to update a record. So how do we fix this? Let's update the `create` and `update` methods to look like the code below:
